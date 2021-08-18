@@ -5,13 +5,15 @@ import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
 
+const SERVER = 'https://personal-project-server.herokuapp.com';
+
 export default function Weather() {
   const [zipCode, setZipCode] = useState('');
   const [currentWeather, setCurrentWeather] = useState();
 
   async function getWeather(zip) {
     const result = await axios
-      .get(`/api/weather/${zip}`)
+      .get(`${SERVER}/api/weather/${zip}`)
       .catch((err) => console.log(err));
     setCurrentWeather(result.data);
   }

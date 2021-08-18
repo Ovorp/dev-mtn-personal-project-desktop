@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
 import { connect } from 'react-redux';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 async function postImage({ image, description, tripId, userId }) {
   const formData = new FormData();
@@ -14,7 +14,7 @@ async function postImage({ image, description, tripId, userId }) {
   formData.append('userId', userId);
   //need to figure out a way to add trip id and user id
 
-  const result = await axios.post('/api/image', formData, {
+  const result = await axios.post(`${SERVER}/api/image`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
   return result.data;
@@ -32,7 +32,7 @@ function ImageForm(props) {
   useEffect(() => {
     async function getPics(tripId) {
       const result = await axios
-        .get(`/api/image?tripId=${tripId}`)
+        .get(`${SERVER}/api/image?tripId=${tripId}`)
         .catch((err) => console.log(err));
       setImageFiles(result.data);
     }

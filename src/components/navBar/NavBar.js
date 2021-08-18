@@ -6,11 +6,13 @@ import './../../css/navBar.css';
 import { connect } from 'react-redux';
 import { loggingOut } from './../../duck/userReducer';
 import { loadDataToStore } from './../../duck/tripReducer';
+const SERVER = 'https://personal-project-server.herokuapp.com';
+
 // import routes from './../../routes';
 function NavBar(props) {
   function logout() {
     axios
-      .post(`/api/users/logout`)
+      .post(`${SERVER}/api/users/logout`)
       .then()
       .catch(() => console.log('the log out did not work'));
     props.loggingOut();

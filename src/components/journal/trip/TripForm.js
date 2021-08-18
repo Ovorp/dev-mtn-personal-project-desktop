@@ -4,12 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { addNewTripToStore } from './../../../duck/tripReducer';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 function TripForm(props) {
   const [tripName, setTripName] = useState('');
 
   async function addNewTrip(tripName, userId) {
-    const result = await axios.post(`/api/trip`, { tripName, userId });
+    const result = await axios.post(`${SERVER}/api/trip`, { tripName, userId });
     props.addNewTripToStore(result.data);
     setTripName('');
   }

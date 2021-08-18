@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 function Images(props) {
   const [imageFiles, setImageFiles] = useState([]);
@@ -8,7 +9,7 @@ function Images(props) {
   useEffect(() => {
     async function getPics(userId) {
       const result = await axios
-        .get(`/api/image?userId=${userId}`)
+        .get(`${SERVER}/api/image?userId=${userId}`)
         .catch((err) => console.log(err));
       setImageFiles(result.data);
     }

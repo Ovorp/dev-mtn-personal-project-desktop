@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-
+const SERVER = 'https://personal-project-server.herokuapp.com';
 function sendTxt(userPhoneNumber) {
   axios
-    .post('/api/text', { userPhoneNumber })
+    .post(`${SERVER}/api/text`, { userPhoneNumber })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
 }

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { loadDataToStore } from './../../../../duck/tripReducer';
 import ToDoItems from './ToDoItems';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 class ToDo extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class ToDo extends Component {
   }
 
   addItem = async (tripId, itemName) => {
-    await axios.post(`/api/todolist`, {
+    await axios.post(`${SERVER}/api/todolist`, {
       tripId,
       itemName,
       isDone: false,
@@ -27,7 +28,7 @@ class ToDo extends Component {
     });
 
     const userInfoForStore = await axios
-      .get(`/api/all/${this.props.user.id}`)
+      .get(`${SERVER}/api/all/${this.props.user.id}`)
       .catch((err) => console.log(err));
 
     this.props.loadDataToStore(userInfoForStore.data);

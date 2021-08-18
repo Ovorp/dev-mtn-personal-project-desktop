@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { loadDataToStore } from './../../../../duck/tripReducer';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 function PersonForm(props) {
   const [firstName, setFirstName] = useState('');
@@ -12,7 +13,7 @@ function PersonForm(props) {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   async function addPerson(tripId) {
-    const peopleAPI = '/api/people';
+    const peopleAPI = `${SERVER}/api/people`;
     const result = await axios
       .post(peopleAPI, {
         firstName,
@@ -29,7 +30,7 @@ function PersonForm(props) {
       })
       .catch((err) => console.log(err));
     const userInfoForStore = await axios
-      .get(`/api/all/${props.user.id}`)
+      .get(`${SERVER}/api/all/${props.user.id}`)
       .catch((err) => console.log(err));
 
     props.loadDataToStore(userInfoForStore.data);

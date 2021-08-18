@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUserData } from './../../duck/userReducer';
 import { loadDataToStore } from './../../duck/tripReducer';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 function Login(props) {
   const [userEmail, setUserEmail] = useState('');
@@ -14,7 +15,7 @@ function Login(props) {
 
   async function logInUser(email, password) {
     const result = await axios
-      .post('/api/users/login', { email, password })
+      .post(`${SERVER}/api/users/login`, { email, password })
       .catch((err) => console.log(err));
 
     if (!result) {
@@ -27,16 +28,24 @@ function Login(props) {
 
       props.registerUserData(userInfo);
 
-      async function getInfo(userId) {
-        const userInfoForStore = await axios
-          .get(`/api/all/${userId}`)
-          .catch((err) => console.log(err));
+      axios
+        .get(`https://personal-project-server.herokuapp.com/api/all/1`)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err, 'This is the error'));
+      // async function getInfo(userId) {
+      //   const userInfoForStore = await axios
+      //     .get(`${SERVER}/api/all/${userId}`)
+      //     .catch((err) => console.log(err));
+      //   axios
+      //     .get(`${SERVER}/api/all/${userId}`)
+      //     .then((res) => console.log(res, 'test'))
+      //     .catch((err) => console.log(err, 'test'));
 
-        console.log(userInfoForStore);
-        props.loadDataToStore(userInfoForStore.data);
-      }
-      console.log(userInfo);
-      getInfo(userInfo.id);
+      //   console.log(userInfoForStore);
+      //   props.loadDataToStore(userInfoForStore.data);
+      // }
+      // console.log(userInfo);
+      // getInfo(userInfo.id);
     }
   }
 

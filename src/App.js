@@ -9,13 +9,15 @@ import { connect } from 'react-redux';
 import { loadDataToStore } from './duck/tripReducer';
 import { registerUserData } from './duck/userReducer';
 
+const SERVER = 'https://personal-project-server.herokuapp.com';
+
 function App(props) {
   let userId = props.user.id;
   useEffect(() => {
     async function checkIfThereIsAUserOnSession() {
       if (!userId) {
         const response = await axios
-          .get(`/api/users`)
+          .get(`${SERVER}/api/users`)
           .catch((err) => console.log(err));
         if (!response) return;
         else {
@@ -38,7 +40,7 @@ function App(props) {
 
           async function getInfo(userId) {
             const userInfoForStore = await axios
-              .get(`/api/all/${userId}`)
+              .get(`${SERVER}/api/all/${userId}`)
               .catch((err) => console.log(err));
 
             props.loadDataToStore(userInfoForStore.data);

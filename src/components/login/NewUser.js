@@ -6,11 +6,11 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { registerUserData } from './../../duck/userReducer';
 import { Link } from 'react-router-dom';
-
+const SERVER = 'https://personal-project-server.herokuapp.com';
 // need first name, last name, password, phone number and email
 function NewUser(props) {
   async function registerUser() {
-    const result = await axios.post(`/api/users/register`, {
+    const result = await axios.post(`${SERVER}/api/users/register`, {
       firstName,
       lastName,
       password,

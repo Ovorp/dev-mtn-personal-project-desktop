@@ -3,13 +3,14 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { loadDataToStore } from './../../../../duck/tripReducer';
+const SERVER = 'https://personal-project-server.herokuapp.com';
 
 function ToDoCheckboxes(props) {
   const [check, setCheck] = useState(props.val.is_done);
   useEffect(() => {
     async function getInfo(userId) {
       const userInfoForStore = await axios
-        .get(`/api/all/${userId}`)
+        .get(`${SERVER}/api/all/${userId}`)
         .catch((err) => console.log(err));
 
       props.loadDataToStore(userInfoForStore.data);
@@ -18,7 +19,7 @@ function ToDoCheckboxes(props) {
   }, [check]);
 
   async function updateIsDone(toDoListItemId, itemName, isDone) {
-    await axios.put(`/api/todolist/`, {
+    await axios.put(`${SERVER}/api/todolist/`, {
       toDoListItemId,
       itemName: itemName,
       isDone,
